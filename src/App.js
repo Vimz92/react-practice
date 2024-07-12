@@ -1,34 +1,40 @@
-import { useReducer } from "react"
-import React from "react"
-
-const reducer = (state, action) => {
-    // eslint-disable-next-line default-case
-    switch(action.type){
-      case "INCREMENT": 
-        return{...state, count: state.count + 1  }
-        case "TEXT":
-          return{...state, text: !state.text}
-          default:
-            return state
-    }
-
-}
+import React, {useEffect, useState} from "react"
+import axios from "axios"
 
 const App = () => {
-  const[state, dispatch] = useReducer(reducer, {count: 0, text: true})
+  const[data, setData] = useState([])
+  
+  useEffect(() => {
+    axios
+      .get('https://jsonplaceholder.typicode.com/comments')
+      .then((response) => {
+        setData(response.data)
+        
+      })
+  })
 
-  const counter = () =>{
-    dispatch({type: "INCREMENT"})
-    dispatch({type: "TEXT"})
-  }
+ 
+    
+    return (
+      <>
+        <h1> hello world</h1>
+        <ul>
+        {data.map((user) => (
+          <li key={user.id}>
+            <p>Name: {user.name}</p>
+            <p>Email: {user.email}</p>
+            {/* Render other user properties as needed */}
+          </li>
+        ))}
+      </ul>
+         </>
 
-  return (
-    <>
-    <h1>{state.count} </h1> 
-    <button onClick={counter}> ButtonCount </button>
-    {!state.text ? <h1> It is working</h1> : ''}
-    </>
-  )
+
+
+    ) 
+    
+    
+  
 }
 
 export default App

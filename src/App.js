@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useReducer } from "react"
+import React from "react"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const reducer = (state, action) => {
+    // eslint-disable-next-line default-case
+    switch(action.type){
+      case "INCREMENT": 
+        return{...state, count: state.count + 1  }
+        case "TEXT":
+          return{...state, text: !state.text}
+          default:
+            return state
+    }
+
 }
 
-export default App;
+const App = () => {
+  const[state, dispatch] = useReducer(reducer, {count: 0, text: true})
+
+  const counter = () =>{
+    dispatch({type: "INCREMENT"})
+    dispatch({type: "TEXT"})
+  }
+
+  return (
+    <>
+    <h1>{state.count} </h1> 
+    <button onClick={counter}> ButtonCount </button>
+    {!state.text ? <h1> It is working</h1> : ''}
+    </>
+  )
+}
+
+export default App

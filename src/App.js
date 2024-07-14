@@ -1,25 +1,19 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
+import Button from "./Button";
+import './App.css'
 
 const App = () => {
 
-  const inputRef = useRef(null)
-
-  const handkeChange = () => {
-    inputRef.current.focus();
-  }
+  const buttonRef = useRef(null)
 
   return (
-    <>
-    <h1> Vimal </h1>
-    <label> UserName</label>
-    <input 
-    type="name"
-    placeholder="Enter the UserName"
-    ref={inputRef}
-    />
-
-    <button onClick={handkeChange}> Submit </button>
-    </>
+    <div className="container">
+    <button onClick={() => {
+      buttonRef.current.alterToggle()
+    }}> Button from Parent </button>
+    <Button ref={buttonRef}/>
+    
+    </div>
   )
 }
 

@@ -1,11 +1,9 @@
-.App {
-  text-align: center;
+.container {
+  display: flex;
+  justify-content: center;
 }
 
-.listItem {
-  list-style: none
+.parentButton {
+  display: flex;
 }
 
-.search {
-  padding: 10px 20px;
-}

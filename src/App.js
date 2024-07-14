@@ -1,40 +1,39 @@
-import React, {useEffect, useState} from "react"
-import axios from "axios"
+
+import React, { useReducer} from "react";
+
+const initialState = {num: 0, dhanu: true}
+
+const reducer = (state, action) => {
+  switch(action.type) {
+    case "INCREMENT":
+      return {...state, num: state.num + 1 }
+    case "TOGGLE":
+      return {...state, dhanu: !state.dhanu}
+      default:
+        return state;
+  }
+  
+}
 
 const App = () => {
-  const[data, setData] = useState([])
+  const[state, dispatch] = useReducer(reducer, initialState)
+
+  const increment = () => {
+   dispatch({type: "INCREMENT"})
+   dispatch({type: "TOGGLE"})
+  }
+
+  return(
+    <> 
+    <h1>React Hooks</h1>
+
+    <h2>{state.num}</h2>
   
-  useEffect(() => {
-    axios
-      .get('https://jsonplaceholder.typicode.com/comments')
-      .then((response) => {
-        setData(response.data)
-        
-      })
-  })
-
- 
+    <button onClick={increment}> Increment </button>
+    {state.dhanu ? <h1> Hai Vidyu </h1> : ''}
+    </>
     
-    return (
-      <>
-        <h1> hello world</h1>
-        <ul>
-        {data.map((user) => (
-          <li key={user.id}>
-            <p>Name: {user.name}</p>
-            <p>Email: {user.email}</p>
-            {/* Render other user properties as needed */}
-          </li>
-        ))}
-      </ul>
-         </>
-
-
-
-    ) 
-    
-    
-  
+  )
 }
 
 export default App
